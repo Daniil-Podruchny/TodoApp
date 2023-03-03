@@ -5,20 +5,38 @@
 {% endblock %}
 
 {% block body %}
-    <h1>List of your tasks:</h1>
+    <div class="container">
+        <div class="row" style="margin-bottom: 50px; margin-top: 50px">
+            <div class="col align-self-center">
+                <h1 class="text-left">List of your tasks</h1>
+            </div>
+            <div class="d-flex col align-self-center justify-content-end">
+                <a class="btn btn-outline-primary btn-lg"  href="{% url 'todo:create-task' %}">Add task</a>
+            </div>
+        </div>
+    </div>
 
-    {% for task in object_list.all %}
-        <div>
-            <p>Name: {{ task.name }}</p>
-            <p>Description: {{ task.description }}</p>
-{#            <a href="{% url "todo:delete-task" pk=task.pk %}">Delete</a>#}
-            <form method="post" action="{% url 'todo:delete-task' pk=task.pk %}">
-                {% csrf_token %}
-                <input type="submit" value="Delete">
-            </form>
-        <a href="{% url 'todo:update-task' pk=task.pk %}">Update</a>
-        </div><hr>
-    {% endfor %}
-
-    <a href="{% url 'todo:create-task' %}">New task</a>
+    <div class="container bg-light">
+        <hr>
+        <div class="row">
+            <div class="col align-self-center"><h5>Name</h5></div>
+            <div class="col align-self-center"><h5>Description</h5></div>
+            <div class="col-2"></div>
+        </div>
+        <hr>
+        {% for task in object_list.all %}
+                <div class="row">
+                    <div class="col align-self-center">{{ task.name }}</div>
+                    <div class="col align-self-center">{{ task.description }}</div>
+                    <div class="col-2 align-self-centre">
+                        <form class="d-flex form-inline justify-content-end" method="post" action="{% url 'todo:delete-task' pk=task.pk %}">
+                            {% csrf_token %}
+                            <a class="btn btn-primary" href="{% url 'todo:update-task' pk=task.pk %}" style="margin-right: 10px;" role="button">Update</a>
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                        </form>
+                    </div>
+                </div>
+            <hr>
+        {% endfor %}
+    </div>
 {% endblock %}
