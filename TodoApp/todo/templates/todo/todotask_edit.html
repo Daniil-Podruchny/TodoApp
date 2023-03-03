@@ -1,0 +1,16 @@
+{% extends 'todo/base.html' %}
+
+{% block title %}
+    Update task
+{% endblock %}
+
+{% block body %}
+    <h1>Edit task</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+{% endblock %}
